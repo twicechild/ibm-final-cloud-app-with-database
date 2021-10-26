@@ -55,21 +55,10 @@
             <button data-toggle="collapse" data-target="#exam">Start Exam</button>
                             <div id="exam" class="collapse">
                                 {% if user.is_authenticated %}                       
-                                    {% for question in course.question_set.all  %}
-                                    <!-- <input type="check" name="choice_{{choice.id}}" id="{{choice.id}}"> -->
-                                    <div class="card-header"><h6>{{question.question_text}}</h6></div>
-                                        {% for choice in question.choice_set.all %}
-                                            <div>
-                                                <li>
-                                                <input type="checkbox" name="choice_{{choice.id}}" id="{{choice.id}}">{{choice.choice_text}}
-                                                </li>
-                                            </div>
-                                            {% endfor %}
-                                        {% endfor %} 
-                            <form id="questionform" action="point to a submit view" method="post">
+                            <form id="questionform" action="{% url 'onlinecourse:submit' course.pk %}" method="post">
                                 {% for question in course.question_set.all %}
                                     <div class="card mt-1">
-                                    <div class="card-header"><h5>{{ question.question_text}}</h5></div>
+                                    <div class="card-header"><h6 style="font-weight:bold">Q: {{ question.question_text}}</h6></div>
                                     {% csrf_token %}
                                         <div class="form-group">
                                             {% for choice in question.choice_set.all %}
