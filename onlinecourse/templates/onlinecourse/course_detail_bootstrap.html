@@ -47,23 +47,31 @@
                     <div class="card mt-1">
                         <div class="card-header"><h5>Lesson {{lesson.order|add:1}}: {{lesson.title}}</h5></div>
                         <div class="card-body">{{lesson.content}}</div>
-                        <div id="exam" class="collapse">
-                            {% if user.is_authenticated %}                            
-                                <li>
-                                    {% for question in lesson.question_set.all %}
-                                    <div class="card-header"><h5>{{question.question_text}}</h5></div>  
-                                    {% endfor %}  
-                                </li>
-                            
-                            {% else %}
-                            <h1>You are not loged in</h1>
-                            {% endif %}
-                            Click to expand elements within the collapse div
-                            </div>
+                        
                     </div>
                 {% endfor %}
             </div>
-            <button data-toggle="collapse" data-target="#exam">Show Exams</button>
+            
+            <button data-toggle="collapse" data-target="#exam">Start Exam</button>
+                            <div id="exam" class="collapse">
+                                {% if user.is_authenticated %}                       
+                                            {% for question in course.question_set.all  %}
+                                                <!-- <input type="check" name="choice_{{choice.id}}" id="{{choice.id}}"> -->
+                                                <div class="card-header"><h6>{{question.question_text}}</h6></div>
+                                                {% for choice in question.choice_set.all %}
+                                                <div>
+                                                    <li>
+                                                    <input type="checkbox" name="choice_{{choice.id}}" id="{{choice.id}}">{{choice.choice_text}}
+                                                    </li>
+                                                </div>
+                                                {% endfor %}
+                                            {% endfor %}                             
+                                {% else %}
+                                <h1>You are not loged in</h1>
+                                {% endif %}    
+                            </div>                        
+
+
             <!-- Task: show questions and choices -->
             <!-- <HINT> Use Bootstrap Collapse to hide exam first, more details could be found here
             https://www.w3schools.com/bootstrap4/bootstrap_collapse.asp-->

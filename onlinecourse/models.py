@@ -102,11 +102,8 @@ class Enrollment(models.Model):
 #     Has question content
 #     Other fields and methods you would like to design
 class Question(models.Model):    
-#     Foreign key to lesson
-    lesson_id = models.ForeignKey(Lesson, on_delete=models.CASCADE)
-#     question text
+    course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
     question_text = models.CharField(max_length=1000)
-#     question grade/mark
     question_grade = models.IntegerField()
 
 #     <HINT> A sample model method to calculate if learner get the score of the question
